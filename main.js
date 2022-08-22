@@ -3,28 +3,33 @@ const desktopMenu = document.querySelector('.desktop-menu');
 const menuBurguer = document.querySelector('.menu-responsive')
 const mobileMenu = document.querySelector('.mobile-menu')
 const menuCarritoIcon = document.querySelector('.navbar-shopping-cart')
-const productDetail = document.querySelector('.product-detail')
+const shoppingCartContainer = document.querySelector('#shoppingCartContainer')
 const cardsContainer = document.querySelector('.cards-container')
+const productDetailContainer = document.querySelector('#productDetail')
+const btnCloseProductDetail = document.querySelector('.product-detail-close')
 
 function toggleDesktopMenu(){
     desktopMenu.classList.toggle('inactive');
-    productDetail.classList.add('inactive')
+    shoppingCartContainer.classList.add('inactive')
 }
 
 function toggleMobileMenu(){
     mobileMenu.classList.toggle('inactive')
-    productDetail.classList.add('inactive')
+    shoppingCartContainer.classList.add('inactive')
+    productDetailContainer.classList.add('inactive')
 }
 
 function toggleDetailProduct(){
-    productDetail.classList.toggle('inactive')
+    shoppingCartContainer.classList.toggle('inactive')
     desktopMenu.classList.add('inactive')
     mobileMenu.classList.add('inactive')
+    productDetailContainer.classList.add('inactive')
 }
 
 menuEmail.addEventListener('click', toggleDesktopMenu)
 menuBurguer.addEventListener('click', toggleMobileMenu)
 menuCarritoIcon.addEventListener('click', toggleDetailProduct)
+btnCloseProductDetail.addEventListener('click',closeProductDetailAside)
 
 
 //LISTA DE PRODUCTOS
@@ -47,6 +52,15 @@ productList.push({
     image: 'https://mla-s1-p.mlstatic.com/742938-MLA46992476713_082021-F.jpg'
 })
 
+function openProductDetailAside(){
+    productDetailContainer.classList.remove('inactive')
+    shoppingCartContainer.classList.add('inactive')
+}
+
+function closeProductDetailAside(){
+    productDetailContainer.classList.add('inactive')
+}
+
 
 /* CREO TODO EL BLOQUE DE IMAGENES DEL HTML PERO DESDE JS
 
@@ -66,7 +80,6 @@ productList.push({
 
 */
 
-
 function renderProducts(newArray){
     for (const product of newArray) {
         const productCard = document.createElement('div')
@@ -74,6 +87,7 @@ function renderProducts(newArray){
     
         const img = document.createElement('img')
         img.setAttribute('src', product.image)
+        img.addEventListener('click', openProductDetailAside)
         
         const productInfo= document.createElement('div')
         productInfo.classList.add('product-info')
